@@ -5,18 +5,26 @@ int n, m, cnt;
 string temp, smallx = "99999999", smalla = "99999999", ansx, ansa;
 set<string> record;
 int main() {
-    int n, t, num, score;
-    cin >> n;
-    int team[1001] = {0};
-    for (int i = 1; i <= n; i++) {
-        scanf("%d-%d %d", &t, &num, &score);
-        team[t] += score;
+    string a, b, c;
+    cin >> a >> b;
+    int lena = a.length(), lenb = b.length();
+    reverse(a.begin(), a.end());
+    reverse(b.begin(), b.end());
+    if (lena > lenb) 
+        b.append(lena - lenb, '0');
+    else
+        a.append(lenb - lena, '0');
+    char str[14] = {"0123456789JQK"};
+    for (int i = 0; i < a.length(); i++) {
+        if (i % 2 == 0) {
+            c += str[(a[i] - '0' + b[i] - '0') % 13];
+        } else {
+            int temp = b[i] - a[i];
+            if (temp < 0) temp = temp + 10;
+            c += str[temp];
+        }
     }
-    int max = 0;
-    for (int i = 0; i < 1001; i++) {
-        if (team[max] < team[i])
-            max = i;
-    }
-    cout << max << " " << team[max];
+    for (int i = c.length() - 1; i >= 0; i--)
+        cout << c[i];
     return 0;
 }
